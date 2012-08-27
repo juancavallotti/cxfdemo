@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd/spring-spring-context-3.1.xsd-3.1.2.RELEASE.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+          http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+          http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+">
+    
+    <!-- import cxf webservices -->
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+    <jaxws:endpoint 
+        id="mywebservice" 
+        implementor="#webserviceImpl" 
+        address="/myws" />
+    
+    
+    <jaxrs:server id="myrestservice" address="/rest">
+        <jaxrs:serviceBeans>
+            <ref bean="webserviceImpl" />
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
+    
+    <bean id="webserviceImpl" class="com.juancavallotti.cxfdemo.MyWebServiceImpl" /> 
+    
+</beans>
